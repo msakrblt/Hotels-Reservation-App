@@ -6,8 +6,10 @@ import com.musakarabulut.hotelreservation.service.RoomsService;
 import com.musakarabulut.hotelreservation.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
-
+@Transactional
 @RestController
 @RequestMapping("/api/v1/rooms")
 public class RoomController {
@@ -28,7 +30,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public Rooms save(@RequestBody Rooms rooms) { //@RequestBody sorguda body den gönderilen veriyi almak için kullanılır
+    public Rooms save(@Valid @RequestBody Rooms rooms) { //@RequestBody sorguda body den gönderilen veriyi almak için kullanılır
         return roomService.save(rooms);
     }
 
@@ -37,10 +39,27 @@ public class RoomController {
         return roomService.update(id, rooms);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable("id") Long id) {
-        return roomService.delete(id);
+//    @DeleteMapping("/{id}")
+//    public String deleteById(@PathVariable("id") Long id) {
+//
+//        return roomService.delete(id);
+//
+//    }
+
+    @DeleteMapping("/{roomNo}")
+    public String deleteByRoomNo(@PathVariable("roomNo") Integer roomNo) {
+
+        return roomService.deleteByRoomNo(roomNo);
+
     }
+
+    @GetMapping("/get/{roomNo}")
+    public boolean get(@PathVariable("roomNo") Integer roomNo) {
+
+        return roomService.findByRoomNo(roomNo);
+
+    }
+
 
 
 }

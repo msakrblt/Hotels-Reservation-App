@@ -15,4 +15,8 @@ public interface RoomsService {
     public Rooms update(Long id, Rooms rooms);
 
     public String delete(Long id);
+
+    public String deleteByRoomNo(Integer roomNo);
+
+    public boolean findByRoomNo(Integer roomNo);
 }

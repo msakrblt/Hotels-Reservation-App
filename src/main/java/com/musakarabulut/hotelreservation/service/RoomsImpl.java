@@ -1,9 +1,7 @@
 package com.musakarabulut.hotelreservation.service;
 
 import com.musakarabulut.hotelreservation.model.Rooms;
-import com.musakarabulut.hotelreservation.model.User;
 import com.musakarabulut.hotelreservation.repository.RoomsRepository;
-import com.musakarabulut.hotelreservation.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +16,7 @@ public class RoomsImpl implements RoomsService{
 
     @Override
     public List<Rooms> getAll() {
-        return null;
+        return roomsRepository.findAll();
     }
 
     @Override
@@ -42,4 +40,21 @@ public class RoomsImpl implements RoomsService{
         roomsRepository.deleteById(id);
         return "Rooms Deleted!";
     }
+
+    @Override
+    public String deleteByRoomNo(Integer roomNo){
+        roomsRepository.deleteByRoomNo(roomNo);
+        return "Room deleted!";
+    }
+
+    @Override
+    public boolean findByRoomNo(Integer roomNo) {
+        Optional<Rooms> room = roomsRepository.findByRoomNo(roomNo);
+        if(room.isPresent()){
+            return true;
+        }
+        return false;
+    }
+
+
 }
